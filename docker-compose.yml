@@ -2,26 +2,38 @@
 version: '3.7'
 
 services:
+  # App backend service
   app-server:
     build:
       context: urlshortner
       dockerfile: Dockerfile
     ports:
-      - "8081:8081"
+      - "8080:8080"
     restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:h2:mem:jpadb
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD: myPass
+    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      - backend
+      - frontend
 
   # Frontend Service
   app-client:
     build:
-      context: urlshortner-ui
+      context: urlshortner-ui # Use an image built from the specified dockerfile in the `polling-app-client` directory.
       dockerfile: Dockerfile
       args:
-        REACT_APP_API_BASE_URL: http://127.0.0.1:8080/api
+        REACT_APP_API_BASE_URL: http://127.0.0.1:8080/
     ports:
-      - "3000:80"
+      - "3000:81" # Map the exposed port 80 on the container to port 9090 on the host machine
     restart: always
     depends_on:
       - app-server
-
+    networks:
+      - frontend
 
 # Networks to be created to facilitate communication between containers
+networks:
+  backend:
+  frontend:
