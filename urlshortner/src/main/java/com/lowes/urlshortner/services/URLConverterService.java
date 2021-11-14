@@ -36,7 +36,7 @@ public class URLConverterService {
 
     public String getLongURLFromID(String uniqueID) throws Exception {
         try {
-            Long dictionaryKey = ConverterUtility.getDictionaryKeyFromUniqueID(uniqueID);
+            Long dictionaryKey = ConverterUtility.getKeyFromUniqueID(uniqueID);
             Optional<URL> url = urlRepository.findById(dictionaryKey);
             String longUrl = url != null ? url.get().getLongUrl() : null;
             logger.info("Converting shortened URL back to {}", longUrl);

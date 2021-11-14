@@ -11,7 +11,7 @@ public class ConverterUtility{
     public static String createUniqueID(Long id) {
         List<Integer> base62ID = convertBase10ToBase62ID(id);
         StringBuilder uniqueURLID = new StringBuilder();
-        var indexToCharTable = initializeIndexToCharTable();
+        var indexToCharTable = getIndexToCharTable();
         for (int digit: base62ID) {
             uniqueURLID.append(indexToCharTable.get(digit));
         }
@@ -27,7 +27,7 @@ public class ConverterUtility{
         return digits;
     }
 
-    private static HashMap<Character, Integer> initializeCharToIndexTable() {
+    private static HashMap<Character, Integer> getCharToIndexTable() {
         var charToIndexTable = new HashMap<Character, Integer>();
         // 0->a, 1->b, ..., 25->z, ..., 52->0, 61->9
         for (int i = 0; i < 26; ++i) {
@@ -48,7 +48,7 @@ public class ConverterUtility{
         return charToIndexTable ;
     }
 
-    private static List<Character>  initializeIndexToCharTable() {
+    private static List<Character>  getIndexToCharTable() {
         // 0->a, 1->b, ..., 25->z, ..., 52->0, 61->9
         var indexToCharTable = new ArrayList<Character>();
         for (int i = 0; i < 26; ++i) {
@@ -69,7 +69,7 @@ public class ConverterUtility{
         return indexToCharTable;
     }
 
-    public static Long getDictionaryKeyFromUniqueID(String uniqueID) {
+    public static Long getKeyFromUniqueID(String uniqueID) {
         List<Character> base62Number = new ArrayList<>();
         for (int i = 0; i < uniqueID.length(); ++i) {
             base62Number.add(uniqueID.charAt(i));
@@ -81,7 +81,7 @@ public class ConverterUtility{
     public static Long convertBase62ToBase10ID(List<Character> ids) {
         long id = 0L;
         int exp = ids.size() - 1 ;
-        var charToIndexTable =  initializeCharToIndexTable();
+        var charToIndexTable =  getCharToIndexTable();
         for (int i = 0; i < ids.size(); ++i, --exp) {
             int base10 = charToIndexTable.get(ids.get(i));
             id += (base10 * Math.pow(62.0, exp));
