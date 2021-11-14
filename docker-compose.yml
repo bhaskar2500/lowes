@@ -1,0 +1,27 @@
+
+version: '3.7'
+
+services:
+  app-server:
+    build:
+      context: urlshortner
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+
+  # Frontend Service
+  app-client:
+    build:
+      context: urlshortner-ui
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_BASE_URL: http://127.0.0.1:8080/api
+    ports:
+      - "9090:80"
+    restart: always
+    depends_on:
+      - app-server
+
+
+# Networks to be created to facilitate communication between containers
