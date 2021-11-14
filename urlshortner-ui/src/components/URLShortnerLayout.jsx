@@ -23,7 +23,7 @@ class URLShortnerLayout extends React.Component {
     async handleSubmit(event) {
         event.preventDefault();
         // const apiURL = process.env.REACT_APP_API_BASE_URL
-        const apiURL = " http://localhost:8081/v1/shorten"
+        const apiURL = "http://localhost:8081/shorten"
         const shortUrl = await axios.post(apiURL, {"url": this.state.longUrl}
             , {
                 headers: {'Access-Control-Allow-Origin': '*'}
