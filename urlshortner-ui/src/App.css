@@ -1,0 +1,28 @@
+.App {
+  text-align: center;
+}
+
+.input{
+  align-items: center;
+  justify-content: center;
+  border: 1px solid whitesmoke;
+}
+.button-block{
+  margin-top: 10px !important;
+}
+
+.background {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
